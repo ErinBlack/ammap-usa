@@ -17,9 +17,10 @@
             };
 
             map.dataProvider = dataProvider;
+            addProvider();
             addCity();
             cityDropdown();
-            addProvider();
+
 
             map.write("mapdiv");
             map.currentZoom = {
@@ -36,6 +37,7 @@
                   city.title = cities[x].city;
                   city.latitude = cities[x].lat;
                   city.longitude = cities[x].lng;
+                  city.countyFips = cities[x].county_fips;
                   city.svgPath = targetSVG;
                   city.zoomLevel = 5;
                   city.scale = 0.5;
@@ -48,7 +50,9 @@
         function addProvider (){
             for (var x in providers){
                 var provider = new AmCharts.MapImage();
+                    provider.class = 'provider';
                     provider.type = 'circle';
+                    provider.alpha = '0.4';
                     provider.width = providers[x].population;
                     provider.height = providers[x].population;
                     provider.county = providers[x].name;
@@ -67,19 +71,32 @@
             var select = document.getElementById( 'citiesSelect' );
             for ( var x in cities ) {
               var option = document.createElement( 'option' );
-              option.value = x;
+              option.value = cities[ x ].county_fips;
               option.text = cities[ x ].city + ', '+ cities[ x ].state_id ;
               select.appendChild( option );
           } // end for loop
         } // end cityDropdown
 
+
         function citySelected(){
             var selectBox = document.getElementById("citiesSelect");
-            var selectedValue = parseInt(selectBox.options[selectBox.selectedIndex ].value) + 1;
-            var selectedImg =  map.dataProvider.images[selectedValue];
-            var selectedImgZoom =  selectedImg.zoomLevel;
-            var selectedImgLat =  selectedImg.latitude;
-            var selectedImgLong =  selectedImg.longitude;
+            var selectedValue = selectBox.options[selectBox.selectedIndex ].value;
 
-            map.zoomToLongLat(selectedImgZoom, selectedImgLong, selectedImgLat, true);
+            // Match selected city with matching img by countyFips value
+            function selectedImage(selectedValue){
+                for (var i = 0; i < map.dataProvider.images.length; i++) {
+                    var selectedImg = map.dataProvider.images[i];
+                    var countyFips = selectedImg.countyFips;
+                    if (countyFips == selectedValue){
+                        var selectedImgZoom =  selectedImg.zoomLevel;
+                        var selectedImgLat =  selectedImg.latitude;
+                        var selectedImgLong =  selectedImg.longitude;
+
+                        map.zoomToLongLat(selectedImgZoom, selectedImgLong, selectedImgLat, true);
+                        return;
+                    }
+                }
+            }
+
+            selectedImage(selectedValue);
         }
