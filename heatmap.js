@@ -869,18 +869,36 @@
                         latitude:40.6943,
                         longitude:-73.9249},
                 ]
-            }
+            }; // end dataProvider
 
             map.areasSettings = {
                 autoZoom: true
             };
+
             map.dataProvider = dataProvider;
             addCity();
             cityDropdown();
 
             map.write("mapdiv");
-        });
-        // end AmCharts.ready
+            map.currentZoom = {
+               "zoomLevel": map.zoomLevel(),
+               "zoomLongitude": map.zoomLongitude(),
+               "zoomLatitude": map.zoomLatitude()
+             };
+            console.log('map.currentZoom', map.currentZoom);
+
+        }); // end AmCharts.ready
+
+        function clicked(){
+            console.log('in clicked');
+            map.currentZoom = {
+               "zoomLevel": map.zoomLevel(),
+               "zoomLongitude": map.zoomLongitude(),
+               "zoomLatitude": map.zoomLatitude()
+             };
+            console.log('map.currentZoom', map.currentZoom);
+
+        }
 
         // Add Cities to the Map
         function addCity (){
@@ -894,17 +912,28 @@
                   city.scale = 0.5;
                   city.chart = map;
                 map.dataProvider.images.push( city );
-             }
-        }
+             } // end for loop
+        } // end addCity
 
         // Populating Dropdown with all Cities
         function cityDropdown (){
             var select = document.getElementById( 'citiesSelect' );
-
             for ( var x in cities ) {
               var option = document.createElement( 'option' );
               option.value = x;
               option.text = cities[ x ].city + ', '+ cities[ x ].state_id ;
               select.appendChild( option );
-            }
+          } // end for loop
+        } // end cityDropdown
+
+        function citySelected(){
+            var selectBox = document.getElementById("citiesSelect");
+            var selectedValue = parseInt(selectBox.options[selectBox.selectedIndex ].value) + 1;
+            // var selectedCity = cities[selectedValue];
+            var selectedImg =  map.dataProvider.images[selectedValue];
+            var selectedImgZoom =  selectedImg.zoomLevel;
+            var selectedImgLat =  selectedImg.latitude;
+            var selectedImgLong =  selectedImg.longitude;
+
+            map.zoomToLongLat(selectedImgZoom, selectedImgLong, selectedImgLat, true);
         }
