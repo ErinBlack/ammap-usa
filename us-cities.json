@@ -1,4 +1,4 @@
-[
+cities = [
   {
     "city": "New York",
     "city_ascii": "New York",
