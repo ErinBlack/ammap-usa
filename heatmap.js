@@ -49,7 +49,9 @@
         // Add Provider dataProvider
         function addProvider (){
             for (var x in providers){
-                var provider = new AmCharts.MapImage();
+                if(providers[x].population > 0){
+                    var provider = new AmCharts.MapImage();
+                    provider.title = '<strong>' + providers[x].name + '</strong> </br> <strong>Providers: </strong>' +  providers[x].population;
                     provider.class = 'provider';
                     provider.type = 'circle';
                     provider.alpha = '0.4';
@@ -63,6 +65,7 @@
                     provider.svgPath = targetSVG;
                     provider.chart = map;
                     map.dataProvider.images.push(provider);
+                }
             }
         }
 
