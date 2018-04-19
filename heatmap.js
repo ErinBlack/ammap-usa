@@ -54,7 +54,7 @@
                     provider.title = '<strong>' + providers[x].name + '</strong> </br> <strong>Providers: </strong>' +  providers[x].population;
                     provider.class = 'provider';
                     provider.type = 'circle';
-                    provider.alpha = '0.4';
+                    provider.alpha = '0.2';
                     provider.width = providers[x].population;
                     provider.height = providers[x].population;
                     provider.county = providers[x].name;
