@@ -1,3 +1,51 @@
+providers = {
+    "categories": [
+        {
+            "name": "Fiber Optic Cabling",
+            "counties": [
+                {
+                  "USPS": "AL",
+                  "county_fips": 1073,
+                  "name": "Jefferson County",
+                  "lat": 33.553444,
+                  "long": -86.896536,
+                  "population": 105
+                },
+                {
+                  "USPS": "AL",
+                  "county_fips": 1003,
+                  "name": "Baldwin County",
+                  "lat": 30.659218,
+                  "long": -87.746067,
+                  "population": 202
+                }
+            ]
+        },
+        {
+            "name": "ATM Technicians",
+            "counties": [
+                {
+                  "USPS": "AL",
+                  "county_fips": 1073,
+                  "name": "Jefferson County",
+                  "lat": 33.553444,
+                  "long": -86.896536,
+                  "population": 105
+                },
+                {
+                  "USPS": "AL",
+                  "county_fips": 1003,
+                  "name": "Baldwin County",
+                  "lat": 30.659218,
+                  "long": -87.746067,
+                  "population": 202
+                }
+            ]
+        }
+    ]
+}
+
+
 providers = [
   {
     "USPS": "AL",

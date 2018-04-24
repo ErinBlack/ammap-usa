@@ -89,16 +89,7 @@ cities = [
     "lat": 33.4016,
     "lng": -111.718
   },
-  {
-    "city": "Chandler",
-    "city_ascii": "Chandler",
-    "state_id": "AZ",
-    "state_name": "Arizona",
-    "county_fips": 4013,
-    "county_name": "Maricopa",
-    "lat": 33.2828,
-    "lng": -111.8517
-  },
+
   {
     "city": "Scottsdale",
     "city_ascii": "Scottsdale",
@@ -108,26 +99,6 @@ cities = [
     "county_name": "Maricopa",
     "lat": 33.6872,
     "lng": -111.865
-  },
-  {
-    "city": "Glendale",
-    "city_ascii": "Glendale",
-    "state_id": "AZ",
-    "state_name": "Arizona",
-    "county_fips": 4013,
-    "county_name": "Maricopa",
-    "lat": 33.5797,
-    "lng": -112.2246
-  },
-  {
-    "city": "Gilbert",
-    "city_ascii": "Gilbert",
-    "state_id": "AZ",
-    "state_name": "Arizona",
-    "county_fips": 4013,
-    "county_name": "Maricopa",
-    "lat": 33.3103,
-    "lng": -111.7463
   },
   {
     "city": "Little Rock",

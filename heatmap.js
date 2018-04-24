@@ -16,6 +16,10 @@
                 autoZoom: true
             };
 
+            map.addClassNames = {
+                addClassNames: true
+            };
+
             map.dataProvider = dataProvider;
             addProvider();
             addCity();
@@ -27,7 +31,7 @@
                "zoomLevel": map.zoomLevel(),
                "zoomLongitude": map.zoomLongitude(),
                "zoomLatitude": map.zoomLatitude()
-             };
+           };
         }); // end AmCharts.ready
 
         // Add Cities to the Map
@@ -52,7 +56,6 @@
                 if(providers[x].population > 0){
                     var provider = new AmCharts.MapImage();
                     provider.title = '<strong>' + providers[x].name + '</strong> </br> <strong>Providers: </strong>' +  providers[x].population;
-                    provider.class = 'provider';
                     provider.type = 'circle';
                     provider.alpha = '0.2';
                     provider.width = providers[x].population;
@@ -61,9 +64,12 @@
                     provider.latitude = providers[x].lat;
                     provider.longitude = providers[x].long;
                     provider.population = providers[x].population;
-                    provider.color = '#3a8cae';
+                    provider.color = '#F16522';
+                    provider.borderColor = '#cb4727';
+                    provider.borderAlpha = '0.2';
                     provider.svgPath = targetSVG;
                     provider.chart = map;
+                    provider.fixedSize = true;
                     map.dataProvider.images.push(provider);
                 }
             }
@@ -94,7 +100,6 @@
                         var selectedImgZoom =  selectedImg.zoomLevel;
                         var selectedImgLat =  selectedImg.latitude;
                         var selectedImgLong =  selectedImg.longitude;
-
                         map.zoomToLongLat(selectedImgZoom, selectedImgLong, selectedImgLat, true);
                         return;
                     }
