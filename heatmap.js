@@ -9,11 +9,6 @@ $(function() {
 
 });
 
-
-
-
-
-
         // svg path for target icon
         var targetSVG = "M9,0C4.029,0,0,4.029,0,9s4.029,9,9,9s9-4.029,9-9S13.971,0,9,0z M9,15.93 c-3.83,0-6.93-3.1-6.93-6.93S5.17,2.07,9,2.07s6.93,3.1,6.93,6.93S12.83,15.93,9,15.93 M12.5,9c0,1.933-1.567,3.5-3.5,3.5S5.5,10.933,5.5,9S7.067,5.5,9,5.5 S12.5,7.067,12.5,9z";
 
@@ -36,8 +31,10 @@ $(function() {
             };
 
             map.dataProvider = dataProvider;
+            addProvider();
             addCity();
             industriesDropdown();
+
 
             map.write("mapdiv");
             map.currentZoom = {
@@ -65,18 +62,18 @@ $(function() {
 
         // Add Provider dataProvider
         function addProvider (){
-            for (var x in providers){
-                if(providers[x].population > 0){
+            for (var x in counties){
+                if(counties[x].population > 0){
                     var provider = new AmCharts.MapImage();
-                    provider.title = '<strong>' + providers[x].name + '</strong> </br> <strong>Providers: </strong>' +  providers[x].population;
+                    provider.title = '<strong>' + counties[x].name + '</strong> </br> <strong>Providers: </strong>' +  counties[x].population;
                     provider.type = 'circle';
                     provider.alpha = '0.2';
-                    provider.width = providers[x].population;
-                    provider.height = providers[x].population;
-                    provider.county = providers[x].name;
-                    provider.latitude = providers[x].lat;
-                    provider.longitude = providers[x].long;
-                    provider.population = providers[x].population;
+                    provider.width = counties[x].population;
+                    provider.height = counties[x].population;
+                    provider.county = counties[x].name;
+                    provider.latitude = counties[x].lat;
+                    provider.longitude = counties[x].long;
+                    provider.population = counties[x].population;
                     provider.color = '#F16522';
                     provider.borderColor = '#cb4727';
                     provider.borderAlpha = '0.2';
@@ -116,7 +113,6 @@ $(function() {
 
         // Populating Dropdown with all Cities
         function cityDropdown (stateId){
-            console.log('in cityDropdown with', stateId);
             var select = document.getElementById( 'citiesSelect' );
             for ( var x in cities ) {
                 if(cities[x].state_id == stateId) {
