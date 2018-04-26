@@ -31,7 +31,6 @@ $(function() {
             };
 
             map.dataProvider = dataProvider;
-            addProvider();
             addCity();
             industriesDropdown();
 
@@ -81,6 +80,7 @@ $(function() {
                     provider.chart = map;
                     provider.fixedSize = true;
                     map.dataProvider.images.push(provider);
+                    provider.validate();
                 }
             }
         }
@@ -125,6 +125,7 @@ $(function() {
         } // end cityDropdown
 
         function industrySelected (){
+            addProvider();
              statesDropdown();
         }
 
