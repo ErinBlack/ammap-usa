@@ -66,8 +66,8 @@ $(function() {
             var industryInfo = providers.categories[x];
             var industryCounties = industryInfo.counties;
             if(industrySelected == industryName){
-                for(var y in industryCounties){
-                    if(industryCounties[y].providers > 0){
+                for(var y in counties){
+                    if(counties[y].population > 0){
                         console.log('in industry county providers > 0');
                         var provider = new AmCharts.MapImage();
                         provider.type = 'circle';
@@ -78,10 +78,10 @@ $(function() {
                         provider.svgPath = targetSVG;
                         provider.chart = map;
                         provider.fixedSize = true;
-                        provider.latitude = 44.492387;
-                        provider.longitude = -109.593597;
-                        provider.width = industryCounties[y].providers * 10;
-                        provider.height = industryCounties[y].providers * 10;
+                        provider.latitude = counties[y].lat;
+                        provider.longitude = counties[y].long;
+                        provider.width = counties[y].population;
+                        provider.height = industryCounties[y].population;
                         map.dataProvider.images.push(provider);
                         console.log('map.dataProvider.images',  map.dataProvider.images);
 
