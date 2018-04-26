@@ -21,10 +21,8 @@
             };
 
             map.dataProvider = dataProvider;
-            addProvider();
             addCity();
-            cityDropdown();
-
+            industriesDropdown();
 
             map.write("mapdiv");
             map.currentZoom = {
@@ -75,6 +73,30 @@
             }
         }
 
+        // Populating Industries Dropdown
+        function industriesDropdown (){
+            var select = document.getElementById( 'industiesSelect' );
+            for ( var x in providers.categories ) {
+              var category = providers.categories;
+              var option = document.createElement( 'option' );
+              option.value = category[ x ].type_of_work_name;
+              option.text = category[ x ].type_of_work_name;
+              select.appendChild( option );
+          } // end for loop
+
+        } // end cityDropdown
+
+        function statesDropdown (){
+            console.log('in states dropdown');
+            var select = document.getElementById( 'statesSelect' );
+            for ( var x in states ) {
+              var option = document.createElement( 'option' );
+              option.value = states[ x ].state_id;
+              option.text = states[ x ].state_name;
+              select.appendChild( option );
+            } // end for loop
+        } // end stateDropdown
+
         // Populating Dropdown with all Cities
         function cityDropdown (){
             var select = document.getElementById( 'citiesSelect' );
@@ -86,6 +108,14 @@
           } // end for loop
         } // end cityDropdown
 
+        function industrySelected (){
+             statesDropdown();
+        }
+
+        function stateSelected(){
+
+            cityDropdown();
+        }
 
         function citySelected(){
             var selectBox = document.getElementById("citiesSelect");
