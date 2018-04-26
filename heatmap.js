@@ -5,6 +5,7 @@ $(function() {
     $("#statesSelect").change(function() {
         var id = $(this).children(":selected").attr("id");
         cityDropdown(id);
+
     });
 
 });
@@ -59,44 +60,69 @@ $(function() {
     } // end addCity
 
     // Add Provider dataProvider
-    function addProvider(){
-        for (var x in providers.categories){
-            var industrySelected = $('#industiesSelect').children(":selected").attr("value");
-            var industryName = providers.categories[x].type_of_work_name;
-            var industryInfo = providers.categories[x];
-            var industryCounties = industryInfo.counties;
-            if(industrySelected == industryName){
-                for(var y in counties){
-                    if(counties[y].population > 0){
-                        console.log('in industry county providers > 0');
-                        var provider = new AmCharts.MapImage();
-                        provider.type = 'circle';
-                        provider.alpha = '0.2';
-                        provider.color = '#F16522';
-                        provider.borderColor = '#cb4727';
-                        provider.borderAlpha = '0.2';
-                        provider.svgPath = targetSVG;
-                        provider.chart = map;
-                        provider.fixedSize = true;
-                        provider.latitude = counties[y].lat;
-                        provider.longitude = counties[y].long;
-                        provider.width = counties[y].population;
-                        provider.height = industryCounties[y].population;
-                        map.dataProvider.images.push(provider);
-                        console.log('map.dataProvider.images',  map.dataProvider.images);
-
-                        // provider.title = '<strong>' + industryCounties[y].county + '</strong> </br> <strong>Providers: </strong>' +  industryCounties[y].providers;
-                        //
-
-                        // provider.county = industryCounties[y].county + ' County';
-                        // // provider.latitude = providers[y].lat;
-                        // // provider.longitude = providers[y].long;
-                        // provider.population = industryCounties[y].providers;
-
-                    }
-                }
+    // function addProvider(){
+    //     for (var x in providers.categories){
+    //         var industrySelected = $('#industiesSelect').children(":selected").attr("value");
+    //         var industryName = providers.categories[x].type_of_work_name;
+    //         var industryInfo = providers.categories[x];
+    //         var industryCounties = industryInfo.counties;
+    //         if(industrySelected == industryName){
+    //             for(var y in counties){
+    //                 if(counties[y].population > 0){
+    //                     console.log('in industry county providers > 0');
+    //                     var provider = new AmCharts.MapImage();
+    //                     provider.type = 'circle';
+    //                     provider.alpha = '0.2';
+    //                     provider.color = '#F16522';
+    //                     provider.borderColor = '#cb4727';
+    //                     provider.borderAlpha = '0.2';
+    //                     provider.svgPath = targetSVG;
+    //                     provider.chart = map;
+    //                     provider.fixedSize = true;
+    //                     provider.latitude = counties[y].lat;
+    //                     provider.longitude = counties[y].long;
+    //                     provider.width = counties[y].population;
+    //                     provider.height = industryCounties[y].population;
+    //                     map.dataProvider.images.push(provider);
+    //                     console.log('map.dataProvider.images',  map.dataProvider.images);
+    //
+    //                     // provider.title = '<strong>' + industryCounties[y].county + '</strong> </br> <strong>Providers: </strong>' +  industryCounties[y].providers;
+    //                     //
+    //
+    //                     // provider.county = industryCounties[y].county + ' County';
+    //                     // // provider.latitude = providers[y].lat;
+    //                     // // provider.longitude = providers[y].long;
+    //                     // provider.population = industryCounties[y].providers;
+    //
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+    function addProvider (){
+        for (var x in counties){
+            if(counties[x].population > 0){
+                var provider = new AmCharts.MapImage();
+                provider.title = '<strong>' + counties[x].name + '</strong> </br> <strong>Providers: </strong>' +  counties[x].population;
+                provider.type = 'circle';
+                provider.alpha = '0.2';
+                provider.width = counties[x].population;
+                provider.height = counties[x].population;
+                provider.county = counties[x].name;
+                provider.latitude = counties[x].lat;
+                provider.longitude = counties[x].long;
+                provider.population = counties[x].population;
+                provider.color = '#F16522';
+                provider.borderColor = '#cb4727';
+                provider.borderAlpha = '0.2';
+                provider.svgPath = targetSVG;
+                provider.chart = map;
+                provider.fixedSize = true;
+                map.dataProvider.images.push(provider);
+                provider.validate();
             }
         }
+        console.log('map.dataProvider.images', map.dataProvider.images);
     }
 
     // Populating Industries Dropdown
@@ -127,7 +153,6 @@ $(function() {
 
     // Populating Dropdown with all Cities
     function cityDropdown (stateId){
-        console.log('in cityDropdown with', stateId);
         // Removing All Cities Options
         $('#citiesSelect')
         .find('option')
