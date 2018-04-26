@@ -1,3 +1,18 @@
+$(function() {
+    console.log( "ready!" );
+
+    // Find the id of the selected state dropdown
+    $("#statesSelect").change(function() {
+        var id = $(this).children(":selected").attr("id");
+        cityDropdown(id);
+    });
+
+});
+
+
+
+
+
 
         // svg path for target icon
         var targetSVG = "M9,0C4.029,0,0,4.029,0,9s4.029,9,9,9s9-4.029,9-9S13.971,0,9,0z M9,15.93 c-3.83,0-6.93-3.1-6.93-6.93S5.17,2.07,9,2.07s6.93,3.1,6.93,6.93S12.83,15.93,9,15.93 M12.5,9c0,1.933-1.567,3.5-3.5,3.5S5.5,10.933,5.5,9S7.067,5.5,9,5.5 S12.5,7.067,12.5,9z";
@@ -84,27 +99,32 @@
               select.appendChild( option );
           } // end for loop
 
-        } // end cityDropdown
+      } // end industriesDropdown
 
         function statesDropdown (){
-            console.log('in states dropdown');
             var select = document.getElementById( 'statesSelect' );
             for ( var x in states ) {
               var option = document.createElement( 'option' );
-              option.value = states[ x ].state_id;
-              option.text = states[ x ].state_name;
+              var stateName = states[ x ].state_name;
+              var stateId = states[ x ].state_id;
+              option.id = stateId;
+              option.value = stateId;
+              option.text = stateName;
               select.appendChild( option );
             } // end for loop
         } // end stateDropdown
 
         // Populating Dropdown with all Cities
-        function cityDropdown (){
+        function cityDropdown (stateId){
+            console.log('in cityDropdown with', stateId);
             var select = document.getElementById( 'citiesSelect' );
             for ( var x in cities ) {
-              var option = document.createElement( 'option' );
-              option.value = cities[ x ].county_fips;
-              option.text = cities[ x ].city + ', '+ cities[ x ].state_id ;
-              select.appendChild( option );
+                if(cities[x].state_id == stateId) {
+                    var option = document.createElement( 'option' );
+                    option.value = cities[ x ].county_fips;
+                    option.text = cities[ x ].city + ', '+ cities[ x ].state_id ;
+                    select.appendChild( option );
+                }
           } // end for loop
         } // end cityDropdown
 
@@ -112,10 +132,18 @@
              statesDropdown();
         }
 
-        function stateSelected(){
-
-            cityDropdown();
-        }
+        $("#statesSelect").change(function() {
+            console.log('this', this);
+            var id = $(this).children(":selected").attr("id");
+            console.log('in stateSelected', id);
+            cityDropdown(id);
+        });
+        // function stateSelected(){
+        //     console.log('this', this);
+        //     var id = $(this).children(":selected").attr("id");
+        //     console.log('in stateSelected', id);
+        //     cityDropdown(id);
+        // }
 
         function citySelected(){
             var selectBox = document.getElementById("citiesSelect");
