@@ -114,6 +114,11 @@ $(function() {
         // Populating Dropdown with all Cities
         function cityDropdown (stateId){
             var select = document.getElementById( 'citiesSelect' );
+            $('#citiesSelect')
+                .find('option')
+                .remove()
+                .end()
+                .append('<option value="">- Select a City -</option>')
             for ( var x in cities ) {
                 if(cities[x].state_id == stateId) {
                     var option = document.createElement( 'option' );
@@ -128,19 +133,6 @@ $(function() {
             addProvider();
              statesDropdown();
         }
-
-        $("#statesSelect").change(function() {
-            console.log('this', this);
-            var id = $(this).children(":selected").attr("id");
-            console.log('in stateSelected', id);
-            cityDropdown(id);
-        });
-        // function stateSelected(){
-        //     console.log('this', this);
-        //     var id = $(this).children(":selected").attr("id");
-        //     console.log('in stateSelected', id);
-        //     cityDropdown(id);
-        // }
 
         function citySelected(){
             var selectBox = document.getElementById("citiesSelect");
